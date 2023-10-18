@@ -23,6 +23,8 @@ func (n Note) CreateNote() *Note {
 
 func init() {
 	config.CreateConnection()
+	db = config.GetConnection()
+	db.AutoMigrate(&Note{})
 }
 
 func GetAllNotes() []Note {
