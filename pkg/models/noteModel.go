@@ -34,13 +34,13 @@ func GetAllNotes() []Note {
 	return notes
 }
 
-func GetNoteById(ID int) (Note, *gorm.DB) {
+func GetNoteById(ID int) (*Note, *gorm.DB) {
 	var note Note
 
 	dbInstance := db.Where("ID=?", ID)
 	dbInstance.Find(&note)
 
-	return note, dbInstance
+	return &note, dbInstance
 }
 
 func DeleteNoteById(ID int) Note {
