@@ -10,7 +10,6 @@ var db *gorm.DB
 
 type Note struct {
 	gorm.Model
-	NoteId    string    `gorm:"" json:"note_id"`
 	NoteTitle string    `json:"note_title"`
 	NoteInfo  string    `json:"note_info"`
 	NoteDate  time.Time `json:"note_date"`
@@ -36,8 +35,15 @@ func GetAllNotes() []Note {
 func GetNoteById(ID int) (Note, *gorm.DB) {
 	var note Note
 
-	dbInstance := db.Where("NoteId=", ID)
+	dbInstance := db.Where("ID=?", ID)
 	dbInstance.Find(&note)
 
 	return note, dbInstance
+}
+
+func DeleteNoteById(ID int) Note {
+	var note Note
+
+	db.Where("ID=?", ID).Delete(&note)
+	return note
 }
