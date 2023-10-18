@@ -32,3 +32,12 @@ func GetAllNotes() []Note {
 	db.Find(&notes)
 	return notes
 }
+
+func GetNoteById(ID int) (Note, *gorm.DB) {
+	var note Note
+
+	dbInstance := db.Where("NoteId=", ID)
+	dbInstance.Find(&note)
+
+	return note, dbInstance
+}
