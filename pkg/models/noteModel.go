@@ -34,7 +34,7 @@ func GetAllNotes() []Note {
 	return notes
 }
 
-func GetNoteById(ID int) (*Note, *gorm.DB) {
+func GetNoteById(ID int64) (*Note, *gorm.DB) {
 	var note Note
 
 	dbInstance := db.Where("ID=?", ID)
