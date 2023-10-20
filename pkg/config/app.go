@@ -1,15 +1,20 @@
 package config
 
-import "github.com/jinzhu/gorm"
+import (
+	"fmt"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+)
 
 var db *gorm.DB
 
 func CreateConnection() error {
-	connectionString := ""
+	connectionString := "root:j1751502021@tcp(localhost:3306)/notesAPI?parseTime=true"
 	d, err := gorm.Open("mysql", connectionString)
 	if err != nil {
-		return err
+		panic(err)
 	}
+	fmt.Println("connection made successfully ")
 	db = d
 	return nil
 }

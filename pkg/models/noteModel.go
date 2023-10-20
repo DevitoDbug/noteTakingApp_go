@@ -9,14 +9,14 @@ var db *gorm.DB
 
 type Note struct {
 	gorm.Model
-	NoteTitle string `json:"note_title"`
+	NoteTitle string `gorm:"" json:"note_title"`
 	NoteInfo  string `json:"note_info"`
 }
 
-func (n Note) CreateNote() *Note {
+func (n *Note) CreateNote() *Note {
 	db.NewRecord(n)
 	db.Create(&n)
-	return &n
+	return n
 }
 
 func init() {
@@ -41,7 +41,7 @@ func GetNoteById(ID int64) (*Note, *gorm.DB) {
 	return &note, dbInstance
 }
 
-func DeleteNoteById(ID int) Note {
+func DeleteNoteById(ID int64) Note {
 	var note Note
 
 	db.Where("ID=?", ID).Delete(&note)
