@@ -10,7 +10,7 @@ import (
 
 func GetIdParam(r *http.Request) (int64, error) {
 	param := mux.Vars(r)
-	ID, err := strconv.ParseInt(param["ID"], 0, 0)
+	ID, err := strconv.ParseInt(param["id"], 0, 0)
 	if err != nil {
 		return -1, err
 	}

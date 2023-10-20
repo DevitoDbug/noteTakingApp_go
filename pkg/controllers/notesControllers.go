@@ -13,14 +13,14 @@ func GetAllNotes(w http.ResponseWriter, r *http.Request) {
 
 	res, err := json.Marshal(notes)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	_, err = w.Write(res)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 }
@@ -28,13 +28,13 @@ func GetAllNotes(w http.ResponseWriter, r *http.Request) {
 func GetNoteById(w http.ResponseWriter, r *http.Request) {
 	ID, err := utils.GetIdParam(r)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
 	note, dbInfo := models.GetNoteById(ID)
 	if dbInfo.Error != nil {
-		fmt.Print(dbInfo.Error)
+		fmt.Println(dbInfo.Error)
 		return
 	}
 
@@ -43,7 +43,7 @@ func GetNoteById(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, err = w.Write(res)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 }
@@ -52,7 +52,7 @@ func CreateNote(w http.ResponseWriter, r *http.Request) {
 	newNote := &models.Note{}
 	err := utils.ParseBody(r, newNote)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
@@ -60,14 +60,14 @@ func CreateNote(w http.ResponseWriter, r *http.Request) {
 
 	res, err := json.Marshal(createdNote)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if _, err := w.Write(res); err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 	}
 }
 
@@ -76,13 +76,13 @@ func UpdateNote(w http.ResponseWriter, r *http.Request) {
 	utils.ParseBody(r, newNote)
 	ID, err := utils.GetIdParam(r)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
 	note, dbInfo := models.GetNoteById(ID)
 	if dbInfo.Error != nil {
-		fmt.Print(dbInfo.Error)
+		fmt.Println(dbInfo.Error)
 		return
 	}
 
@@ -99,21 +99,21 @@ func UpdateNote(w http.ResponseWriter, r *http.Request) {
 
 	res, err := json.Marshal(note)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if _, err := w.Write(res); err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 	}
 }
 
 func DeleteNote(w http.ResponseWriter, r *http.Request) {
 	ID, err := utils.GetIdParam(r)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
@@ -121,14 +121,14 @@ func DeleteNote(w http.ResponseWriter, r *http.Request) {
 
 	res, err := json.Marshal(deletedNote)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if _, err = w.Write(res); err == nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return
 	}
 
