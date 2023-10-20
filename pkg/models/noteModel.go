@@ -3,16 +3,14 @@ package models
 import (
 	"github.com/DevitoDbug/noteTakingApp_go/pkg/config"
 	"github.com/jinzhu/gorm"
-	"time"
 )
 
 var db *gorm.DB
 
 type Note struct {
 	gorm.Model
-	NoteTitle string    `json:"note_title"`
-	NoteInfo  string    `json:"note_info"`
-	NoteDate  time.Time `json:"note_date"`
+	NoteTitle string `json:"note_title"`
+	NoteInfo  string `json:"note_info"`
 }
 
 func (n Note) CreateNote() *Note {

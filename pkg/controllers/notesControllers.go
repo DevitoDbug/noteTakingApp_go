@@ -70,9 +70,46 @@ func CreateNote(w http.ResponseWriter, r *http.Request) {
 		fmt.Print(err)
 	}
 }
-func UpdateNote(w http.ResponseWriter, r *http.Request) {
 
+func UpdateNote(w http.ResponseWriter, r *http.Request) {
+	var newNote = &models.Note{}
+	utils.ParseBody(r, newNote)
+	ID, err := utils.GetIdParam(r)
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	note, dbInfo := models.GetNoteById(ID)
+	if dbInfo.Error != nil {
+		fmt.Print(dbInfo.Error)
+		return
+	}
+
+	//Checking for changes
+	if newNote.NoteInfo != "" {
+		note.NoteInfo = newNote.NoteInfo
+	}
+	if newNote.NoteTitle != "" {
+		note.NoteTitle = newNote.NoteTitle
+	}
+
+	//saving changes
+	dbInfo.Save(&note)
+
+	res, err := json.Marshal(note)
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	if _, err := w.Write(res); err != nil {
+		fmt.Print(err)
+	}
 }
+
 func DeleteNote(w http.ResponseWriter, r *http.Request) {
 
 }
