@@ -9,8 +9,8 @@ var db *gorm.DB
 
 type Note struct {
 	gorm.Model
-	NoteTitle string `gorm:"" json:"note_title"`
-	NoteInfo  string `json:"note_info"`
+	NoteTitle string `gorm:"type:varchar(255)"  json:"note_title"`
+	NoteInfo  string `gorm:"type:LONGTEXT" json:"note_info"`
 }
 
 func (n *Note) CreateNote() *Note {

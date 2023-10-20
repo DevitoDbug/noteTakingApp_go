@@ -18,13 +18,12 @@ func GetIdParam(r *http.Request) (int64, error) {
 }
 
 func ParseBody(r *http.Request, note interface{}) error {
-	if body, err := ioutil.ReadAll(r.Body); err == nil {
-		if err := json.Unmarshal([]byte(body), note); err != nil {
-			return nil
-		} else {
-			return err
-		}
-	} else {
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
 		return err
 	}
+	if err = json.Unmarshal(body, note); err != nil {
+		return err
+	}
+	return nil
 }
