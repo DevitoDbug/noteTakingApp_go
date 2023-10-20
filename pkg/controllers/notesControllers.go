@@ -47,12 +47,32 @@ func GetNoteById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
-func CreateBook(w http.ResponseWriter, r *http.Request) {
+
+func CreateNote(w http.ResponseWriter, r *http.Request) {
+	newNote := &models.Note{}
+	err := utils.ParseBody(r, newNote)
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	createdNote := newNote.CreateNote()
+
+	res, err := json.Marshal(createdNote)
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	if _, err := w.Write(res); err != nil {
+		fmt.Print(err)
+	}
+}
+func UpdateNote(w http.ResponseWriter, r *http.Request) {
 
 }
-func UpdateBook(w http.ResponseWriter, r *http.Request) {
-
-}
-func DeleteBook(w http.ResponseWriter, r *http.Request) {
+func DeleteNote(w http.ResponseWriter, r *http.Request) {
 
 }
