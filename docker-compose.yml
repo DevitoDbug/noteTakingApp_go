@@ -13,3 +13,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: j1751502021
       MYSQL_DATABASE: noteAPIDatabase
+      MYSQL_USER: notesAPI
+      MYSQL_PASSWORD: j1751502021
