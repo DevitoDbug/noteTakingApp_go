@@ -9,7 +9,7 @@ import (
 var db *gorm.DB
 
 func CreateConnection() error {
-	connectionString := "root:j1751502021@tcp(localhost:3306)/notesAPI?parseTime=true"
+	connectionString := "root:j1751502021@tcp(database:3306)/notesAPI?parseTime=true"
 	d, err := gorm.Open("mysql", connectionString)
 	if err != nil {
 		panic(err)
